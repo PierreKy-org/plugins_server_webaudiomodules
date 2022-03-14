@@ -27,7 +27,12 @@ app.get("/plugins", (req, res) => {
 });
 
 app.get("/plugins/*", (req, res) => {
-    res.send(req.params[0]);
+  const protocol = req.protocol;
+  const host = req.hostname;
+  const url = req.originalUrl;
+  const urlIndex = `${protocol}://${host}:${port}${url}index.js`;
+  const urlDescriptor = `${protocol}://${host}:3000${url}descriptor.json`;
+  res.send([urlIndex, urlDescriptor]);
 });
 
 app.listen(port, () => {
