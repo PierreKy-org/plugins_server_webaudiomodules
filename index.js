@@ -13,26 +13,21 @@ app.post("/", function (req, res) {
   res.send("Add plugins");
 });
 
-//Renvois la liste des plugins
+//Renvois la liste des plugins sur le serveur
 app.get("/plugins", (req, res) => {
   const folder = "./plugins/";
+  const protocol = req.protocol;
+  const host = req.hostname;
+  const url = req.originalUrl;
   const fs = require("fs");
   fs.readdir(folder, (err, files) => {
     plugins = [];
     files.forEach((file) => {
-      plugins.push(file);
+      let urlIndex = `${protocol}://${host}:${port}${url}/${file}`;
+      plugins.push(urlIndex);
     });
     res.send(plugins);
   });
-});
-
-app.get("/plugins/*", (req, res) => {
-  const protocol = req.protocol;
-  const host = req.hostname;
-  const url = req.originalUrl;
-  const urlIndex = `${protocol}://${host}:${port}${url}index.js`;
-  const urlDescriptor = `${protocol}://${host}:3000${url}descriptor.json`;
-  res.send([urlIndex, urlDescriptor]);
 });
 
 app.listen(port, () => {
