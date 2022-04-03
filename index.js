@@ -9,19 +9,26 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(cors());
-app.use("/plugins", express.static(path.join(__dirname, "plugins")));
 
-//Renvois les différents dossiers de plugins (pas forcément sur ce serveur)
 app.get("/repositories", (req, res) => {
   res.send(repositories);
 });
 
-//Renvois la liste des plugins sur le serveur
 app.get("/plugins", (req, res) => {
   res.send(plugins.map((plugin) => `https://${req.get("Host")}/plugins/${plugin}/`));
 });
 
 app.use("/", express.static(path.join(__dirname, "TER")));
+
+app.use("/plugins", express.static(path.join(__dirname, "plugins")));
+
+app._router.stack.forEach(function (r) {
+  if (r.route && r.route.path) {
+    console.log(r.route.path);
+  }
+});
+
+console.log("PATHS", path.join(__dirname, "TER"), path.join(__dirname, "plugins"));
 
 app.listen(port, () => {
   console.log(`App: http://localhost:${port}`);
