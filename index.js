@@ -18,9 +18,9 @@ app.get("/plugins", (req, res) => {
   res.send(plugins.map((plugin) => `https://${req.get("Host")}/plugins/${plugin}/`));
 });
 
-app.use("/", express.static(path.join(__dirname, "TER")));
+app.use("/", express.static("TER"));
 
-app.use("/plugins", express.static(path.join(__dirname, "plugins")));
+app.use("/plugins", express.static("plugins"));
 
 app._router.stack.forEach(function (r) {
   if (r.route && r.route.path) {
