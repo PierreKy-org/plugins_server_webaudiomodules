@@ -22,14 +22,6 @@ app.use("/", express.static("TER"));
 
 app.use("/plugins", express.static("plugins"));
 
-app._router.stack.forEach(function (r) {
-  if (r.route && r.route.path) {
-    console.log(r.route.path);
-  }
-});
-
-console.log("PATHS", path.join(__dirname, "TER"), path.join(__dirname, "plugins"));
-
 app.listen(port, () => {
   console.log(`App: http://localhost:${port}`);
 });
