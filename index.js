@@ -6,7 +6,7 @@ const repositories = require("./repositories.json");
 const plugins = require("./plugins.json");
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(cors());
 app.use("/plugins", express.static(path.join(__dirname, "plugins")));
