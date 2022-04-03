@@ -18,9 +18,11 @@ app.get("/plugins", (req, res) => {
   res.send(plugins.map((plugin) => `https://${req.get("Host")}/plugins/${plugin}/`));
 });
 
-app.use("/", express.static("TER"));
+app.use("/", express.static(path.join(__dirname, "TER")));
 
-app.use("/plugins", express.static("plugins"));
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "/TER/index.html"));
+});
 
 app.listen(port, () => {
   console.log(`App: http://localhost:${port}`);
