@@ -18,7 +18,7 @@ app.get("/repositories", (req, res) => {
 
 //Renvois la liste des plugins sur le serveur
 app.get("/plugins", (req, res) => {
-  res.send(plugins.map((plugin) => `${req.protocol}://${req.get("Host")}/plugins/${plugin}/`));
+  res.send(plugins.map((plugin) => `https://${req.get("Host")}/plugins/${plugin}/`));
 });
 
 app.use("/", express.static(path.join(__dirname, "TER")));
